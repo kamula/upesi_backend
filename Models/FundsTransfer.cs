@@ -9,7 +9,9 @@ namespace api.Models
     public class FundsTransfer
     {
 
+
         // Funds Transfer model
+        public Guid Id { get; set; } = Guid.NewGuid();
         public Guid AccountId { get; set; }
         [ForeignKey("SourceAccount")]
         public Guid SourceAccountId { get; set; }  // Foreign Key for the source account
