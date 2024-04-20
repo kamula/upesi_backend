@@ -4711,11 +4711,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/isaac/Documents/projects/c#/upesi/api/api.csproj",
+      "projectUniqueName": "/home/isaac/Documents/projects/c_sharp/upesi/api/api.csproj",
       "projectName": "api",
-      "projectPath": "/home/isaac/Documents/projects/c#/upesi/api/api.csproj",
+      "projectPath": "/home/isaac/Documents/projects/c_sharp/upesi/api/api.csproj",
       "packagesPath": "/home/isaac/.nuget/packages/",
-      "outputPath": "/home/isaac/Documents/projects/c#/upesi/api/obj/",
+      "outputPath": "/home/isaac/Documents/projects/c_sharp/upesi/api/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/isaac/.nuget/NuGet/NuGet.Config"

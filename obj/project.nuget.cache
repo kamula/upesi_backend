@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "VyDsHfQKuBAxiaGb+xmyUS+AJTPH8RU0dCQRR38gNr1+uveFp0TtLw2HPiyCWT7p2KMLkuuz2/80GkfqYyAiWQ==",
+  "dgSpecHash": "xPBVknpc71UMhKY+Az9wQKTHeD9tyLzof1btt66qut/NfzO6lGG7ImUFBDUxscTwUvq32elNWTC9/OIBsPjqgg==",
   "success": true,
-  "projectFilePath": "/home/isaac/Documents/projects/c#/upesi/api/api.csproj",
+  "projectFilePath": "/home/isaac/Documents/projects/c_sharp/upesi/api/api.csproj",
   "expectedPackageFiles": [
     "/home/isaac/.nuget/packages/azure.core/1.35.0/azure.core.1.35.0.nupkg.sha512",
     "/home/isaac/.nuget/packages/azure.identity/1.10.3/azure.identity.1.10.3.nupkg.sha512",

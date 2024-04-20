@@ -57,6 +57,18 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// CORS configuration
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
+
 
 builder.Services.AddAuthorization();
 builder.Services.AddScoped<ItokenService, TokenService>();
@@ -69,6 +81,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowAll"); // APPLY all core
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
