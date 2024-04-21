@@ -35,13 +35,11 @@ namespace api.Controllers
 
         }
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAll()
         {
-            var accounts = await _accountRepo.GetAllAsync();
-
-            var fundsDto = accounts.Select(s => s.ToAccountTransferDto());
-
-            return Ok(fundsDto);
+            var accounts = await _accountRepo.GetAllAccountDetailsAsync();
+            return Ok(accounts);
         }
 
         [HttpPost("create")]

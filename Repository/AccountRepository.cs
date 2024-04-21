@@ -82,5 +82,18 @@ namespace api.Repository
 
             return "Balance updated successfully.";
         }
+
+        public async Task<List<AccountDetailsDto>> GetAllAccountDetailsAsync()
+        {
+            return await _context.Accounts
+                .Include(a => a.User)
+                .Select(a => new AccountDetailsDto
+                {
+                    Id = a.Id,
+                    AccountNumber = a.AccountNumber,
+                    FirstName = a.User.FirstName,
+                    LastName = a.User.LastName
+                }).ToListAsync();
+        }
     }
 }

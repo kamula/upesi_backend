@@ -10,5 +10,10 @@ public class AccountDetailsDto
     public decimal Balance { get; set; }
     public NewUserDto User { get; set; }
     public List<AtmWithdrawDto> AtmWithdraws { get; set; }
-    public List<FundsTransferDto> FundsTransfers { get; set; } // Ensure this property is defined
+    public List<FundsTransferDto> FundsTransfers { get; set; }
+
+    public Guid Id { get; set; }
+    
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
 }

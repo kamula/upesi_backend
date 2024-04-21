@@ -20,6 +20,8 @@ namespace api.Interfaces
         Task<bool> AccountNumberExists(string accountNumber);
 
         Task<string> UpdateAccountBalanceAsync(Guid userId, decimal amount, string sourceOfFunds);
+
+        Task<List<AccountDetailsDto>> GetAllAccountDetailsAsync();
         
     }
 }
