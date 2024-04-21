@@ -12,7 +12,7 @@ namespace api.Models
         public Guid SourceAccountId { get; set; }  // Foreign Key for the Source account
         public Account? SourceAccount { get; set; }  // Navigation property for the Source account
 
-        public string? BankName { get; set; } = string.Empty;
+        // public string? BankName { get; set; } = string.Empty;
         public int? BankAccountNumber { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
