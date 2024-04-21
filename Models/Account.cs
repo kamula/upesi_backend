@@ -19,11 +19,11 @@ namespace api.Models
         public string AccountNumber { get; set; } = string.Empty;
 
         // Savings, current,money market
-        public string AccountType { get; set; } = string.Empty;
+        // public string AccountType { get; set; } = string.Empty;
 
         // Foreign Key for User
-        public Guid UserId { get; set; }
-        public User? User { get; set; } // Navigation property
+        public User User { get; set; }  // Navigation property back to the User
+        public Guid UserId { get; set; }  // FK to match User's PK
 
         public DateTime CreatedAt { get; private set; } // Not editable after creation
         public DateTime UpdatedAt { get; set; } // Editable and should be set on updates

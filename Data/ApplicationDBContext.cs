@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using api.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -11,20 +8,23 @@ namespace api.Data
 {
     public class ApplicationDBContext : IdentityDbContext<User, ApplicationRole, Guid>
     {
-        public ApplicationDBContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
+        public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options)
         {
-
         }
-        // public DbSet<User> Users { get; set; }
+
         public DbSet<Account> Accounts { get; set; }
         public DbSet<FundsTransfer> FundsTransfers { get; set; }
         public DbSet<AtmWithdraw> AtmWithdraws { get; set; }
 
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            // Configure the one-to-one relationship between User and Account
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Account)
+                .WithOne(a => a.User)
+                .HasForeignKey<Account>(a => a.UserId);
 
             // Configure the primary key for Account
             modelBuilder.Entity<Account>()
@@ -35,21 +35,14 @@ namespace api.Data
                 .HasOne(ft => ft.SourceAccount)
                 .WithMany(a => a.FundsTransfers)
                 .HasForeignKey(ft => ft.SourceAccountId)
-                .OnDelete(DeleteBehavior.Restrict); // This prevents cascade delete
+                .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
 
             // Configure the relationship between Account and FundsTransfer for DestinationAccount
             modelBuilder.Entity<FundsTransfer>()
                 .HasOne(ft => ft.DestinationAccount)
-                .WithMany() // No navigation property back to FundsTransfer in Account
+                .WithMany() // No navigation property back to FundsTransfers in Account
                 .HasForeignKey(ft => ft.DestinationAccountId)
-                .OnDelete(DeleteBehavior.Restrict); // This prevents cascade delete
-
-            // Setting up the relationship and foreign key for User in Account
-            modelBuilder.Entity<Account>()
-                .HasOne(a => a.User)
-                .WithMany(u => u.Accounts)
-                .HasForeignKey(a => a.UserId)
-                .OnDelete(DeleteBehavior.Cascade); // Deletes all accounts if the user is deleted
+                .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
 
             // Seed user roles
             modelBuilder.Entity<ApplicationRole>().HasData(
@@ -66,8 +59,6 @@ namespace api.Data
                     NormalizedName = "USER"
                 }
             );
-
         }
-
     }
 }

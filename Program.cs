@@ -1,6 +1,7 @@
 using api.Data;
 using api.Interfaces;
 using api.Models;
+using api.Repository;
 using api.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -72,6 +73,10 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddAuthorization();
 builder.Services.AddScoped<ItokenService, TokenService>();
+builder.Services.AddScoped<IFundsTransferRepository, FundsTransferRepository>();
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<AccountNumberGenerator>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
