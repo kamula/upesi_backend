@@ -75,6 +75,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<ItokenService, TokenService>();
 builder.Services.AddScoped<IFundsTransferRepository, FundsTransferRepository>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IWithdrawToAtmRepository, AtmWithdrawRepository>();
 builder.Services.AddScoped<AccountNumberGenerator>();
 
 var app = builder.Build();
