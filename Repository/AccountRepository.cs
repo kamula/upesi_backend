@@ -63,5 +63,24 @@ namespace api.Repository
         {
             return await _context.Accounts.AnyAsync(a => a.AccountNumber == accountNumber);
         }
+
+        public async Task<string> UpdateAccountBalanceAsync(Guid userId, decimal amount, string sourceOfFunds)
+        {
+            var account = await _context.Accounts.FirstOrDefaultAsync(a => a.UserId == userId);
+            if (account == null)
+                return "Account not found.";
+
+            if (!Enum.TryParse(sourceOfFunds, out SourceOfFunds parsedSourceOfFunds))
+                return "Invalid source of funds.";
+
+            account.CurrentBalance += amount; // Adjust sign based on operation (deposit/withdrawal)
+            account.SourceOfFunds = parsedSourceOfFunds;
+            account.UpdatedAt = DateTime.UtcNow;
+
+            _context.Accounts.Update(account);
+            await _context.SaveChangesAsync();
+
+            return "Balance updated successfully.";
+        }
     }
 }

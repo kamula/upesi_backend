@@ -1,37 +1,37 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace api.Models
 {
+    // Moved outside of the Account class
+    public enum SourceOfFunds
+    {
+        Deposit,
+        TransferredFunds
+    }
+
     public class Account
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 
         [Column(TypeName = "decimal(18,2)")]
-
-        // Default value will be zero
         public decimal CurrentBalance { get; set; } = 0.00M;
-
-        // randomly generated 10 digit number
+        
         public string AccountNumber { get; set; } = string.Empty;
 
-        // Savings, current,money market
-        // public string AccountType { get; set; } = string.Empty;
+        public User User { get; set; }
+        public Guid UserId { get; set; }
 
-        // Foreign Key for User
-        public User User { get; set; }  // Navigation property back to the User
-        public Guid UserId { get; set; }  // FK to match User's PK
+        [Column(TypeName = "nvarchar(20)")]
+        [DefaultValue("Deposit")] // Ensure this default value is set in the database manually if needed
+        public SourceOfFunds SourceOfFunds { get; set; } = SourceOfFunds.Deposit;
 
-        public DateTime CreatedAt { get; private set; } // Not editable after creation
-        public DateTime UpdatedAt { get; set; } // Editable and should be set on updates
+        public DateTime CreatedAt { get; private set; }
+        public DateTime UpdatedAt { get; set; }
 
-        // Funds Transfer foreign key config
         public List<FundsTransfer> FundsTransfers { get; set; } = new List<FundsTransfer>();
-
-        // ATM withdraw foreign key config
         public List<AtmWithdraw> AtmWithdraws { get; set; } = new List<AtmWithdraw>();
     }
 }

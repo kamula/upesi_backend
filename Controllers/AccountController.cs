@@ -74,6 +74,32 @@ namespace api.Controllers
             return Ok("Account created successfully");
         }
 
+
+        [HttpPatch("deposit")]
+        [Authorize]
+        public async Task<IActionResult> DepositBalance([FromBody] AccountDepositDto accountDepositDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            // Retrieve userId from the claims
+            var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!Guid.TryParse(userIdClaim, out Guid userId))
+            {
+                return Unauthorized("User ID is invalid.");
+            }
+
+            var amount = accountDepositDto.depositAmount;
+            if (amount <= 0)
+                return BadRequest("Invalid amount.");
+
+            var result = await _accountRepo.UpdateAccountBalanceAsync(userId, amount, "Deposit");
+            if (result == "Balance updated successfully.")
+                return Ok(result);
+
+            return BadRequest(result);
+        }
+
+
         [HttpGet("details")]
         [Authorize]
         public async Task<IActionResult> GetUserAccountDetails()
