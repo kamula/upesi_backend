@@ -9,5 +9,7 @@ namespace api.Interfaces
     public interface IFundsTransferRepository
     {
         public Task<List<FundsTransfer>> GetAllAsync();
+
+        Task<string> TransferFundsAsync(Guid sourceAccountId, Guid destinationAccountId, decimal amount);
     }
 }
