@@ -25,7 +25,9 @@ namespace api.Repository
             try
             {
                 var account = await _context.Accounts
-                    .FirstOrDefaultAsync(a => a.UserId == userId && a.AccountNumber == bankAccountNumber.ToString());
+                    .FirstOrDefaultAsync(a => a.UserId == userId);
+                // var account = await _context.Accounts
+                //     .FirstOrDefaultAsync(a => a.UserId == userId && a.AccountNumber == bankAccountNumber.ToString());
 
                 if (account == null)
                 {
@@ -47,7 +49,7 @@ namespace api.Repository
                     SourceAccountId = account.Id,
                     BankAccountNumber = bankAccountNumber,
                     AmountTransferred = amount,
-                    
+
                 };
 
                 await _context.AtmWithdraws.AddAsync(atmWithdraw);
