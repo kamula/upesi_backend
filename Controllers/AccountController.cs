@@ -22,11 +22,14 @@ namespace api.Controllers
         private readonly IAccountRepository _accountRepo;
         private readonly AccountNumberGenerator _accountNumberGenerator;
 
+        private readonly IUserFinancialRepository _financialRepository;
 
-        public AccountController(IAccountRepository accountRepo, AccountNumberGenerator accountNumberGenerator)
+
+        public AccountController(IAccountRepository accountRepo, AccountNumberGenerator accountNumberGenerator, IUserFinancialRepository financialRepository)
         {
             _accountRepo = accountRepo;
             _accountNumberGenerator = accountNumberGenerator;
+            _financialRepository = financialRepository;
 
 
 
@@ -102,36 +105,28 @@ namespace api.Controllers
 
         [HttpGet("details")]
         [Authorize]
-        public async Task<IActionResult> GetUserAccountDetails()
+        public async Task<IActionResult> GetFinancialDetails()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null)
+            var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!Guid.TryParse(userIdClaim, out Guid userId))
             {
-                return BadRequest("user id not found");
+                return Unauthorized("User ID is invalid.");
             }
-            var account = await _accountRepo.GetAccountWithDetailsByUserId((Guid.Parse(userId)));
 
-            var accountDetailsDto = new AccountDetailsDto
-            {
-                // AtmWithdraws = account.AtmWithdraws.Select(w => new AtmWithdrawDto
-                // {
-                //     Id = w.Id,
-                //     AmountTransferred = w.AmountTransferred,
-                //     BankAccountNumber = w.BankAccountNumber,
-                //     TransferDate = w.CreatedAt
+            var details = await _financialRepository.GetUserFinancialDetailsAsync(userId);
+            if (details == null)
+                return NotFound("User or financial details not found.");
 
-                // }).ToList(),
-                // FundsTransfers = account.FundsTransfers.Select(t => new FundsTransferDto
-                // {
-                //     Id = t.Id,
-                //     DestinationAccountNumber = t.DestinationAccount.AccountNumber,
-                //     DestinationAccountId = t.DestinationAccountId,
-                //     TransferDate = t.CreatedAt,
-
-                // }).ToList()
-            };
-            return Ok(accountDetailsDto);
+            return Ok(details);
         }
+
+
+
+
+
+
+
+
 
 
     }
