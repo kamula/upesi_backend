@@ -50,7 +50,7 @@ namespace api.Repository
                 // Save to Transfers table
                 var fundsTransfer = new FundsTransfer
                 {
-                    SourceAccountId = sourceAccountId,
+                    SourceAccountId = sourceAccount.Id,
                     DestinationAccountId = destinationAccountId,
                     AmountTransferred = amount,
                     CreatedAt = DateTime.UtcNow

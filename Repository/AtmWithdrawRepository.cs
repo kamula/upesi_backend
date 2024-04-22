@@ -49,6 +49,7 @@ namespace api.Repository
                     SourceAccountId = account.Id,
                     BankAccountNumber = bankAccountNumber,
                     AmountTransferred = amount,
+                    CreatedAt = DateTime.UtcNow,
 
                 };
 
