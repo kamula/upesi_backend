@@ -47,6 +47,16 @@ namespace api.Repository
                 // Add to destination
                 destinationAccount.CurrentBalance += amount;
 
+                // Save to Transfers table
+                var fundsTransfer = new FundsTransfer
+                {
+                    SourceAccountId = sourceAccountId,
+                    DestinationAccountId = destinationAccountId,
+                    AmountTransferred = amount,
+                    CreatedAt = DateTime.UtcNow
+                };
+                await _context.FundsTransfers.AddAsync(fundsTransfer);
+
                 // Save changes and commit transaction
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();

@@ -20,7 +20,17 @@ namespace api.Repository
         public async Task<UserFinancialDetailsDto> GetUserFinancialDetailsAsync(Guid userId)
         {
             var account = await _context.Accounts.FirstOrDefaultAsync(a => a.UserId == userId);
-            if (account == null) return null;
+            if (account == null)
+            {
+                return new UserFinancialDetailsDto
+                {
+                    CurrentBalance = 0,
+                    TotalAmountTransacted = 0,
+                    TotalAmountWithdrawn = 0,
+                    RecentTransfers = new List<TransactionDto>(),
+                    RecentWithdraws = new List<WithdrawDto>()
+                };
+            }
 
             // Get total funds transacted
             var totalTransacted = await _context.FundsTransfers

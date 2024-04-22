@@ -25,7 +25,7 @@ namespace api.Models
 
         // Default value will be zero
         public decimal AmountTransferred { get; set; }
-        public DateTime CreatedAt { get; private set; }
+        public DateTime CreatedAt { get; set; }
 
     }
 }
