@@ -27,15 +27,17 @@ These instructions will help you get a copy of the project up and running on you
    ```bash
    cd upesi_backend
    ```
-3. Restore dependencies:
+3. Configure database url and password in appsettings.json:
+ 
+4. Restore dependencies:
    ```bash
    dotnet restore
    ```
-4. Set up the database (ensure MySQL is running):
+5. Set up the database (ensure MySQL is running):
    ```bash
    dotnet ef database update
    ```
-5. Run the application:
+6. Run the application:
    ```bash
    dotnet run
    ```
