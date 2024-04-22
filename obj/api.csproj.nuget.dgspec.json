@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/isaac/Documents/projects/c#/upesi/api/api.csproj": {}
+    "/home/isaac/Documents/projects/c_sharp/upesi/api/api.csproj": {}
   },
   "projects": {
-    "/home/isaac/Documents/projects/c#/upesi/api/api.csproj": {
+    "/home/isaac/Documents/projects/c_sharp/upesi/api/api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/isaac/Documents/projects/c#/upesi/api/api.csproj",
+        "projectUniqueName": "/home/isaac/Documents/projects/c_sharp/upesi/api/api.csproj",
         "projectName": "api",
-        "projectPath": "/home/isaac/Documents/projects/c#/upesi/api/api.csproj",
+        "projectPath": "/home/isaac/Documents/projects/c_sharp/upesi/api/api.csproj",
         "packagesPath": "/home/isaac/.nuget/packages/",
-        "outputPath": "/home/isaac/Documents/projects/c#/upesi/api/obj/",
+        "outputPath": "/home/isaac/Documents/projects/c_sharp/upesi/api/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/isaac/.nuget/NuGet/NuGet.Config"
@@ -38,13 +38,49 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[8.0.3, )"
             },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
+            "Microsoft.Extensions.Identity.Core": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
+            },
+            "dotenv.net": {
+              "target": "Package",
+              "version": "[3.1.3, )"
             }
           },
           "imports": [
