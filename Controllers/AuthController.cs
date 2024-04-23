@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.Data;
 using api.Dtos.auth;
 using api.Interfaces;
 using api.Models;
@@ -19,11 +20,13 @@ namespace api.Controllers
         private readonly ItokenService _tokenService;
 
         private readonly SignInManager<User> _signInManager;
-        public AuthController(UserManager<User> userManager, ItokenService tokenService, SignInManager<User> signInManager)
+        private readonly ApplicationDBContext _context;
+        public AuthController(UserManager<User> userManager, ItokenService tokenService, SignInManager<User> signInManager, ApplicationDBContext context)
         {
             _userManager = userManager;
             _tokenService = tokenService;
             _signInManager = signInManager;
+            _context = context;
 
         }
 
@@ -43,12 +46,15 @@ namespace api.Controllers
 
             if (!result.Succeeded) return Unauthorized("Username not found/Password incorrect");
 
+            bool hasCreatedAccount = await _context.Accounts.AnyAsync(a => a.UserId == user.Id);
+
             return Ok(
                 new NewUserDto
                 {
                     Id = user.Id,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
+                    HasCreatedAccount = hasCreatedAccount,
                     Token = _tokenService.CreateToken(user)
                 }
             );
