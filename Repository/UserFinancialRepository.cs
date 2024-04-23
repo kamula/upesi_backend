@@ -20,6 +20,8 @@ namespace api.Repository
         public async Task<UserFinancialDetailsDto> GetUserFinancialDetailsAsync(Guid userId)
         {
             var account = await _context.Accounts.FirstOrDefaultAsync(a => a.UserId == userId);
+            bool hasCreatedAccount = account != null;  // Check if the account exists
+
             if (account == null)
             {
                 return new UserFinancialDetailsDto
@@ -28,7 +30,8 @@ namespace api.Repository
                     TotalAmountTransacted = 0,
                     TotalAmountWithdrawn = 0,
                     RecentTransfers = new List<TransactionDto>(),
-                    RecentWithdraws = new List<WithdrawDto>()
+                    RecentWithdraws = new List<WithdrawDto>(),
+                    HasCreatedAccount = hasCreatedAccount
                 };
             }
 
@@ -76,7 +79,8 @@ namespace api.Repository
                 TotalAmountTransacted = totalTransacted,
                 TotalAmountWithdrawn = totalWithdrawn,
                 RecentTransfers = recentTransfers,
-                RecentWithdraws = recentWithdraws
+                RecentWithdraws = recentWithdraws,
+                HasCreatedAccount = hasCreatedAccount
             };
         }
     }
