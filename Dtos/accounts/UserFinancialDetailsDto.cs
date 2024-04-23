@@ -8,6 +8,8 @@ namespace api.Dtos
         public decimal CurrentBalance { get; set; }
         public decimal TotalAmountTransacted { get; set; }
         public decimal TotalAmountWithdrawn { get; set; }
+
+        public bool HasCreatedAccount { get; set; } //check if user has created account or not
         public List<TransactionDto> RecentTransfers { get; set; }
         public List<WithdrawDto> RecentWithdraws { get; set; }
     }

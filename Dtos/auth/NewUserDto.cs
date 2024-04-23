@@ -11,7 +11,5 @@ namespace api.Dtos.auth
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Token { get; set; }
-
-        public bool HasCreatedAccount { get; set; }
     }
 }
